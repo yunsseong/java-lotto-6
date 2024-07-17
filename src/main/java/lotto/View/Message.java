@@ -11,6 +11,10 @@ public class Message {
 		System.out.println(message);
 	}
 
+	public void printNewLine(){
+		System.out.println();
+	}
+
 	public void printError(String message) {
 		this.println("[ERROR] " + message);
 	}
