@@ -17,7 +17,7 @@ public class LottoController {
 	}
 
 	public void run() {
-		purchase();
+		lottoStore.buyLotto(purchase());
 	}
 
 	public int purchase() {
@@ -25,7 +25,7 @@ public class LottoController {
 		do {
 			amountString = message.scanner("구매금액을 입력해 주세요.");
 		} while (!validateAmount(amountString));
-		message.println(amountString);
+		message.printNewLine();
 		return Integer.parseInt(amountString);
 	}
 
