@@ -6,7 +6,7 @@ public interface Output {
 
 	public void printBuyAmountMessage();
 	public void printBuyAmount(int buyAmount);
-	public void printLottoNumber(List<String> lottoList);
+	public void printLottoList(List<List<Integer>> lottoList);
 	public void printInputHitNumberMessage();
 	public void printInputBonusNumber();
 	public void printHitStaticsMessage();

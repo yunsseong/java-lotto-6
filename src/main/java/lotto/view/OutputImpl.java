@@ -20,8 +20,9 @@ public class OutputImpl implements Output{
 	}
 
 	@Override
-	public void printLottoNumber(List<String> lottoList) {
-
+	public void printLottoList(List<List<Integer>> lottoList) {
+		lottoList
+			.forEach(System.out::println);
 	}
 
 	@Override
