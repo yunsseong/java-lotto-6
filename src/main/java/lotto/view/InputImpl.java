@@ -22,9 +22,8 @@ public class InputImpl implements Input{
 	@Override
 	public int getSingleNumber() {
 		String input = getInput();
-		if(validate.isNumber(input))
+		if(Validate.isNumber(input))
 			return Integer.parseInt(input);
-
-
+		throw new IllegalArgumentException(ExceptionMessage.NOT_INT_TYPE_INPUT);
 	}
 }
