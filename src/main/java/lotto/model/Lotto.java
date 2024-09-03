@@ -2,6 +2,10 @@ package lotto.model;
 
 import java.util.List;
 
+import lotto.exception.InvalidLottoNumberCount;
+import lotto.exception.NotInLottoRange;
+import lotto.view.ExceptionMessage;
+
 public class Lotto {
     private final List<Integer> numbers;
 
@@ -12,7 +16,7 @@ public class Lotto {
 
     private void validate(List<Integer> numbers) {
         if (numbers.size() != 6) {
-            throw new IllegalArgumentException();
+            throw new InvalidLottoNumberCount();
         }
     }
 
