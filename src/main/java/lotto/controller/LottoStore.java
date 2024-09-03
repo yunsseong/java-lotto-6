@@ -4,11 +4,12 @@ import java.util.List;
 
 public interface LottoStore {
 
-	public void purchase();
+	public List<List<Integer>> buyLotto();
+	public int purchase();
+	public void generateLottoList(int purchaseQuantity);
 	public void setHitNumber();
 	public void setHitBonusNumber();
-	public int getLottoAmount();
-	public List<Integer> getGeneratedLottoNumber();
+	public List<List<Integer>> getGeneratedLottoList();
 	public List<Integer> getHitResult();
 	public float getReturnOnInvestment();
 }

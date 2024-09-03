@@ -1,7 +1,12 @@
 package lotto.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
+import camp.nextstep.edu.missionutils.Randoms;
+import lotto.model.Lotto;
 import lotto.model.Purchase;
 import lotto.view.Input;
 import lotto.view.InputImpl;
@@ -9,7 +14,7 @@ import lotto.view.Output;
 import lotto.view.OutputImpl;
 
 public class LottoStoreImpl implements LottoStore{
-	private Purchase buyAmount;
+	private List<Lotto> generatedLottoList = new ArrayList<>();
 	private final Input input;
 	private final Output output;
 
@@ -18,22 +23,53 @@ public class LottoStoreImpl implements LottoStore{
 		this.output = new OutputImpl();
 	}
 
-	@Override
-	public void purchase() {
-		output.printBuyAmountMessage();
-		do {
-			try{
-				this.buyAmount = new Purchase(input.getSingleNumber());
-			} catch (IllegalArgumentException e) {
-				output.printExceptionMessage(e.getMessage());
-			}
-		} while (buyAmount == null);
-		output.printBuyAmount(buyAmount.getPurchaseQuantity());
+	public List<List<Integer>> buyLotto() {
+		int purchaseQuantity = purchase();
+		generateLottoList(purchaseQuantity);
+		return getGeneratedLottoList();
 	}
 
 	@Override
-	public void setHitNumber() {
+	public int purchase() {
+		output.printBuyAmountMessage();
+		Purchase purchase = null;
+		do {
+			try{
+				purchase = new Purchase(input.getSingleNumber());
+			} catch (IllegalArgumentException e) {
+				output.printExceptionMessage(e.getMessage());
+			}
+		} while (purchase == null);
+		output.printBuyAmount(purchase.getPurchaseQuantity());
+		return purchase.getPurchaseQuantity();
+	}
 
+	@Override
+	public void generateLottoList(int purchaseQuantity) {
+		  this.generatedLottoList = Stream
+			 .generate(() -> new Lotto(generateLottoNumber()))
+			 .limit(purchaseQuantity)
+			 .collect(Collectors.toList());
+	}
+
+	private List<Integer> generateLottoNumber() {
+		return Randoms.pickUniqueNumbersInRange(1, 45, 6)
+			.stream()
+			.sorted()
+			.collect(Collectors.toList());
+	}
+
+	@Override
+	public List<List<Integer>> getGeneratedLottoList() {
+		return generatedLottoList.stream()
+			.map(Lotto::getNumbers)
+			.collect(Collectors.toList());
+	}
+
+
+
+	@Override
+	public void setHitNumber() {
 	}
 
 	@Override
@@ -41,15 +77,6 @@ public class LottoStoreImpl implements LottoStore{
 
 	}
 
-	@Override
-	public int getLottoAmount() {
-		return 0;
-	}
-
-	@Override
-	public List<Integer> getGeneratedLottoNumber() {
-		return null;
-	}
 
 	@Override
 	public List<Integer> getHitResult() {
