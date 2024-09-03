@@ -10,7 +10,7 @@ public class MainController implements Controller{
 
 	@Override
 	public void runner() {
-		lottoStore.buyLotto();
+		lottoStore.purchase();
 	}
 
 	@Override
